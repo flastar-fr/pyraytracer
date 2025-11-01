@@ -1,4 +1,4 @@
-from pygame import Vector3, Vector2
+from pygame import Vector3, Vector2, Color
 
 from plane import Plane
 from camera import Camera
@@ -74,13 +74,12 @@ def is_ray_on_triangle(plane: Plane, ray: Vector3, camera: Camera, triangle: Tri
     if not (min_x <= i.x <= max_x and min_y <= i.y <= max_y and min_z <= i.z <= max_z):
         return False
 
-    v: Vector3 = triangle.p2 - triangle.p3
-    a: Vector3 = v.cross(i - triangle.p3)
-    b: Vector3 = v.cross(triangle.p1 - triangle.p3)
-    c: float = a.dot(b)
-
     is_i_on_t1: bool = _check_intersection_point_same_side(i, triangle.p1, triangle.p2, triangle.p3)
     is_i_on_t2: bool = _check_intersection_point_same_side(i, triangle.p2, triangle.p1, triangle.p3)
     is_i_on_t3: bool = _check_intersection_point_same_side(i, triangle.p3, triangle.p1, triangle.p2)
 
     return is_i_on_t1 and is_i_on_t2 and is_i_on_t3
+
+
+def get_pixel_color(pixel: Vector2, camera: Camera, triangles: list[Triangle]) -> Color:
+    pass
