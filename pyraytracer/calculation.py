@@ -30,11 +30,15 @@ def calculate_ray(pixel: Vector2, rotation: Vector2) -> Vector3:
     return m.rotate(rotation.y, Y_AXIS)
 
 
-def intersect_ray_plane(plane: Plane, ray: Vector3, camera: Camera) -> Vector3:
+def calculate_lambda_value(plane: Plane, ray: Vector3, camera: Camera) -> float:
     plane_coordinates: Vector3 = Vector3(plane.a, plane.b, plane.c)
     numerator: float = (plane_coordinates.dot(camera.coordinates) + plane.k)
     divisor: float = plane_coordinates.dot(ray)
-    lambda_value: float = - numerator / divisor
+    return - numerator / divisor
+
+
+def intersect_ray_plane(plane: Plane, ray: Vector3, camera: Camera) -> Vector3:
+    lambda_value: float = calculate_lambda_value(plane, ray, camera)
 
     intersection_point: Vector3 = Vector3(
         ray.x * lambda_value + camera.coordinates.x,
@@ -43,3 +47,12 @@ def intersect_ray_plane(plane: Plane, ray: Vector3, camera: Camera) -> Vector3:
     )
 
     return intersection_point
+
+
+def is_ray_visible(plane: Plane, ray: Vector3, camera: Camera, triangle: Triangle, i: Vector3) -> bool:
+    lambda_value: float = calculate_lambda_value(plane, ray, camera)
+
+    if lambda_value < 0:
+        return False
+
+
