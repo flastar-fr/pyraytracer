@@ -2,7 +2,7 @@ import pygame
 from pygame import Vector3, Vector2
 
 from camera import Camera
-from raytracer.calculation import calculate_planes
+from calculation import calculate_planes
 from triangle import Triangle
 
 pygame.init()
