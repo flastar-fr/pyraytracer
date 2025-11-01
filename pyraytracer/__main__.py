@@ -27,7 +27,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("white")
+    screen.fill("black")
 
     pygame.display.flip()
 
